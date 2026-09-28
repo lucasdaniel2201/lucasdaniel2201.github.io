@@ -7,10 +7,10 @@ import Dossie from '../components/Dossie.astro';
 const projetos = (await getCollection('projetos')).sort((a, b) => a.data.ordem - b.data.ordem);
 
 const numeros = [
+  { valor: '4', rotulo: 'projetos publicados' },
   { valor: '470', rotulo: 'testes automatizados' },
-  { valor: '3', rotulo: 'repositórios públicos' },
-  { valor: '3', rotulo: 'releases publicadas' },
-  { valor: '3', rotulo: 'pipelines de CI' },
+  { valor: '3', rotulo: 'repositórios com CI e release' },
+  { valor: '15 min', rotulo: 'de SLA sustentado por automação' },
 ];
 
 const areas = [
@@ -43,7 +43,7 @@ const areas = [
 
 <Base
   title="Lucas Daniel Santos · Infraestrutura e automação"
-  description="Portfólio de Lucas Daniel Santos, analista de implantação com foco em infraestrutura, automação e observabilidade. Ferramentas próprias em Python, n8n e Docker para implantar, documentar e monitorar parques de rede."
+  description="Portfólio de Lucas Daniel Santos, analista de implantação com foco em infraestrutura, automação e observabilidade. Automação de incidentes entre Zabbix e GLPI, ferramentas próprias em Python e um pipeline em n8n e Docker."
 >
   <section class="hero">
     <div class="shell hero__grid">
@@ -96,9 +96,9 @@ const areas = [
           <h2>Trabalho publicado</h2>
         </div>
         <p>
-          Dois deles são a mesma ferramenta apontada para destinos diferentes: um documenta o parque
-          no NetBox, o outro garante que ele seja monitorado no Zabbix. O terceiro não tem tela nem
-          planilha.
+          Começa pela automação que transforma evento de monitoramento em chamado, sem abrir
+          duplicado. Depois vêm duas ferramentas que são a mesma, apontadas para destinos
+          diferentes, e um pipeline que roda sozinho.
         </p>
       </div>
 

@@ -5,7 +5,7 @@ resumo: >-
   prévia do que será criado, escrita idempotente e verificação de atualizações.
 papel: 'Concepção e implementação, do zero'
 periodo: '2026'
-ordem: 2
+ordem: 3
 stack:
   - Python
   - PySide6

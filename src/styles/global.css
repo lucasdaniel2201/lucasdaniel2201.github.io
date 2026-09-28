@@ -712,6 +712,17 @@ a:hover {
   object-fit: contain;
 }
 
+/* Captura muito larga e baixa (uma faixa de alerta, por exemplo) perde sentido
+   dentro da moldura: fica fina e cercada de vazio. Aqui ela mantem a altura
+   natural. */
+.media--natural {
+  aspect-ratio: auto;
+}
+
+.media--natural img {
+  height: auto;
+}
+
 /* Telas de apoio do case study: lado a lado quando cabe, para ler como um
    conjunto e nao como uma pilha de imagens soltas. */
 .galeria {

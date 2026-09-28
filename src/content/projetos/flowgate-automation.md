@@ -5,7 +5,7 @@ resumo: >-
   um webhook de destino, com retry, batching e tolerância a falhas parciais.
 papel: 'Concepção e implementação, do zero'
 periodo: '2026'
-ordem: 3
+ordem: 4
 stack:
   - n8n
   - Docker Compose

@@ -11,8 +11,10 @@ const projetos = defineCollection({
     papel: z.string(),
     periodo: z.string(),
     stack: z.array(z.string()),
-    repo: z.string().url(),
-    release: z.string().url(),
+    // Opcionais: nem todo projeto tem repositorio publico. Trabalho entregue a
+    // cliente entra como case study, sem link de codigo.
+    repo: z.string().url().optional(),
+    release: z.string().url().optional(),
     ordem: z.number(),
     metricas: z.array(
       z.object({
@@ -24,7 +26,17 @@ const projetos = defineCollection({
     imagemAlt: z.string(),
     // Imagens extras do case study. A `imagem` acima e a capa (tambem usada na
     // listagem); a galeria sao as telas de apoio, na ordem em que aparecem.
-    galeria: z.array(z.object({ src: z.string(), alt: z.string() })).default([]),
+    // `enquadramento: natural` existe para captura muito larga e baixa, que
+    // ficaria perdida dentro da moldura de proporcao fixa.
+    galeria: z
+      .array(
+        z.object({
+          src: z.string(),
+          alt: z.string(),
+          enquadramento: z.enum(['moldura', 'natural']).default('moldura'),
+        }),
+      )
+      .default([]),
     ficha: z.array(
       z.object({
         rotulo: z.string(),

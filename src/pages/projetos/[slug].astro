@@ -28,10 +28,27 @@ const dados = projeto.data;
 
       <p class="lede" style="margin-top: var(--sp-4)">{dados.resumo}</p>
 
-      <div class="hero__actions">
-        <a class="btn btn--primary" href={dados.repo}>Ver o código</a>
-        <a class="btn" href={dados.release}>Baixar a release</a>
-      </div>
+      {
+        dados.repo || dados.release ? (
+          <div class="hero__actions">
+            {dados.repo && (
+              <a class="btn btn--primary" href={dados.repo}>
+                Ver o código
+              </a>
+            )}
+            {dados.release && (
+              <a class="btn" href={dados.release}>
+                Baixar a release
+              </a>
+            )}
+          </div>
+        ) : (
+          <p class="dossier__role" style="margin-top: var(--sp-5)">
+            Trabalho entregue a um cliente, sem repositório público. O case study abaixo descreve o
+            problema, a arquitetura e as decisões.
+          </p>
+        )
+      }
 
       <div class="facts">
         <div class="facts__row">
@@ -67,7 +84,7 @@ const dados = projeto.data;
         dados.galeria.length > 0 && (
           <div class="galeria">
             {dados.galeria.map((item) => (
-              <div class="media">
+              <div class={`media${item.enquadramento === 'natural' ? ' media--natural' : ''}`}>
                 <img src={item.src} alt={item.alt} loading="lazy" decoding="async" />
               </div>
             ))}

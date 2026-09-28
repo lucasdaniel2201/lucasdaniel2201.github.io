@@ -5,7 +5,7 @@ resumo: >-
   planilha, pelo formulário web, para funcionar onde a API por token está bloqueada.
 papel: 'Concepção e implementação, do zero'
 periodo: '2026'
-ordem: 1
+ordem: 2
 stack:
   - Python
   - PySide6

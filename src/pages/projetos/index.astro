@@ -15,8 +15,9 @@ const projetos = (await getCollection('projetos')).sort((a, b) => a.data.ordem -
       <p class="label">Projetos</p>
       <h1 style="margin-top: var(--sp-2)">Ferramentas em uso, não exercícios</h1>
       <p class="lede" style="margin-top: var(--sp-4)">
-        Os três projetos nasceram de trabalho real de implantação e operação. Cada um tem suíte de
-        testes, integração contínua e release publicada.
+        Quatro projetos, todos nascidos de trabalho real de implantação e operação. Três são
+        ferramentas abertas, com suíte de testes, integração contínua e release publicada. Um é
+        trabalho entregue a cliente, e aparece aqui como case study, sem código público.
       </p>
 
       <div class="suite">
@@ -37,8 +38,10 @@ const projetos = (await getCollection('projetos')).sort((a, b) => a.data.ordem -
             e eu mantenho uma superfície só para as duas, o que reduz o custo de corrigir e evoluir.
           </p>
           <p style="color: var(--muted)">
-            O Flowgate é outra coisa: não tem tela, não tem planilha e não tem ninguém na frente. É
-            um pipeline que roda sozinho.
+            Os outros dois projetos não fazem parte da suíte, e é de propósito. A automação de
+            incidentes entre Zabbix e GLPI resolve outro problema e não tem tela para o analista de
+            campo. O Flowgate não tem tela, não tem planilha e não tem ninguém na frente: é um
+            pipeline que roda sozinho.
           </p>
         </div>
 
