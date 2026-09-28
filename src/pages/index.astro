@@ -1,0 +1,148 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Topologia from '../components/Topologia.astro';
+import Dossie from '../components/Dossie.astro';
+
+const projetos = (await getCollection('projetos')).sort((a, b) => a.data.ordem - b.data.ordem);
+
+const numeros = [
+  { valor: '470', rotulo: 'testes automatizados' },
+  { valor: '3', rotulo: 'repositórios públicos' },
+  { valor: '3', rotulo: 'releases publicadas' },
+  { valor: '3', rotulo: 'pipelines de CI' },
+];
+
+const areas = [
+  {
+    titulo: 'Infraestrutura',
+    itens: 'Linux, Windows, servidores, NAS, redes, Wi-Fi e CFTV IP.',
+  },
+  {
+    titulo: 'Observabilidade',
+    itens: 'Zabbix e Grafana, com triggers, templates, dashboards e indicadores.',
+  },
+  {
+    titulo: 'Automação',
+    itens: 'Python, Node.js, TypeScript, scripts próprios e integração com APIs REST.',
+  },
+  {
+    titulo: 'ITSM',
+    itens: 'GLPI, com gestão de incidentes, regras, entidades, grupos e SLA.',
+  },
+  {
+    titulo: 'Dados',
+    itens: 'SQL, consultas e análise de indicadores operacionais.',
+  },
+  {
+    titulo: 'Segurança eletrônica',
+    itens: 'Câmeras IP, Dahua, HikCentral, Nx Witness e ISS.',
+  },
+];
+---
+
+<Base
+  title="Lucas Daniel Santos · Infraestrutura e automação"
+  description="Portfólio de Lucas Daniel Santos, analista de implantação com foco em infraestrutura, automação e observabilidade. Ferramentas próprias em Python, n8n e Docker para implantar, documentar e monitorar parques de rede."
+>
+  <section class="hero">
+    <div class="shell hero__grid">
+      <div>
+        <p class="hero__eyebrow label">
+          <span class="topo-dot" style="display:inline-block;width:7px;height:7px;border-radius:50%"
+          ></span>
+          Analista de Implantação · Fortaleza, CE
+        </p>
+
+        <h1>
+          <em>Ferramentas próprias</em> para implantar, documentar e monitorar infraestrutura.
+        </h1>
+
+        <p class="lede">
+          Trabalho com infraestrutura, CFTV e observabilidade. Quando uma tarefa é manual e
+          repetitiva, eu construo a ferramenta que a resolve: aplicativos desktop em Python,
+          integrações entre Zabbix, GLPI e NetBox, e pipelines em n8n rodando em Docker.
+        </p>
+
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="/projetos/">Ver os projetos</a>
+          <a class="btn" href="https://github.com/lucasdaniel2201">GitHub</a>
+          <a class="btn" href="https://www.linkedin.com/in/lucas-santos-a620011b9">LinkedIn</a>
+        </div>
+      </div>
+
+      <Topologia />
+    </div>
+
+    <div class="shell">
+      <dl class="status-strip">
+        {
+          numeros.map((numero) => (
+            <div class="status-strip__cell">
+              <dd class="status-strip__value">{numero.valor}</dd>
+              <dt class="status-strip__label label">{numero.rotulo}</dt>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <div class="section__head">
+        <div>
+          <p class="label">Projetos</p>
+          <h2>Trabalho publicado</h2>
+        </div>
+        <p>
+          Cada projeto abaixo existe para resolver um problema real de operação, e é distribuído
+          com testes automatizados, CI e documentação.
+        </p>
+      </div>
+
+      {projetos.map((projeto, i) => <Dossie projeto={projeto} indice={i + 1} />)}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <div class="section__head">
+        <div>
+          <p class="label">Atuação</p>
+          <h2>Onde eu trabalho</h2>
+        </div>
+        <p>
+          Da camada física à integração entre plataformas, passando pelo que acontece depois que
+          o incidente abre.
+        </p>
+      </div>
+
+      <div class="areas">
+        {
+          areas.map((area) => (
+            <div class="areas__cell">
+              <h3 class="label" style="color: var(--text)">{area.titulo}</h3>
+              <p>{area.itens}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="closing">
+    <div class="shell">
+      <div class="closing__inner">
+        <div>
+          <h2>Quer o contexto completo?</h2>
+          <p style="margin-top: var(--sp-2); color: var(--muted)">
+            A trajetória, as ferramentas do dia a dia e o que eu busco agora estão na página
+            sobre.
+          </p>
+        </div>
+        <a class="btn btn--primary" href="/sobre/">Ler o sobre</a>
+      </div>
+    </div>
+  </section>
+</Base>

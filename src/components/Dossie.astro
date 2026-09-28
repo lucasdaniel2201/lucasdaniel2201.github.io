@@ -1,0 +1,54 @@
+---
+interface Props {
+  projeto: {
+    id: string;
+    data: {
+      titulo: string;
+      resumo: string;
+      papel: string;
+      stack: string[];
+      imagem: string;
+      imagemAlt: string;
+      metricas: { valor: string; rotulo: string }[];
+    };
+  };
+  indice: number;
+}
+
+const { projeto, indice } = Astro.props;
+const dados = projeto.data;
+const numero = String(indice).padStart(2, '0');
+---
+
+<article class="dossier reveal" style={`--reveal-delay: ${indice * 70}ms`}>
+  <p class="dossier__index">{numero}</p>
+
+  <div>
+    <h3 class="dossier__title">
+      <a href={`/projetos/${projeto.id}/`}>{dados.titulo}</a>
+    </h3>
+    <p class="dossier__role">{dados.papel}</p>
+    <div class="dossier__stack">
+      {dados.stack.map((item) => <span class="tag">{item}</span>)}
+    </div>
+  </div>
+
+  <div class="dossier__body">
+    <p>{dados.resumo}</p>
+
+    <div class="dossier__metrics">
+      {
+        dados.metricas.map((metrica) => (
+          <div class="dossier__metric">
+            <b>{metrica.valor}</b>
+            <span>{metrica.rotulo}</span>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="media">
+      <img src={dados.imagem} alt={dados.imagemAlt} loading="lazy" decoding="async" />
+    </div>
+  </div>
+</article>

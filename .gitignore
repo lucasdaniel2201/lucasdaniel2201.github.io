@@ -1,0 +1,19 @@
+# Dependencias e saida de build
+node_modules/
+dist/
+.astro/
+
+# Editor e sistema
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+npm-debug.log*
+
+# Ambiente
+.env
+.env.*

@@ -1,0 +1,42 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Dossie from '../../components/Dossie.astro';
+
+const projetos = (await getCollection('projetos')).sort((a, b) => a.data.ordem - b.data.ordem);
+---
+
+<Base
+  title="Projetos · Lucas Daniel Santos"
+  description="Três ferramentas de infraestrutura: dois aplicativos desktop em Python para Zabbix e NetBox, e um pipeline ETL em n8n e Docker. Todas com testes automatizados, CI e documentação."
+>
+  <section class="section">
+    <div class="shell">
+      <p class="label">Projetos</p>
+      <h1 style="margin-top: var(--sp-2)">Ferramentas em uso, não exercícios</h1>
+      <p class="lede" style="margin-top: var(--sp-4)">
+        Os três projetos nasceram de trabalho real de implantação e operação. Cada um tem suíte de
+        testes, integração contínua e release publicada.
+      </p>
+
+      <div style="margin-top: var(--sp-7)">
+        {projetos.map((projeto, i) => <Dossie projeto={projeto} indice={i + 1} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="closing">
+    <div class="shell">
+      <div class="closing__inner">
+        <div>
+          <h2>Como eu chego nessas decisões</h2>
+          <p style="margin-top: var(--sp-2); color: var(--muted)">
+            Cada projeto tem um texto explicando o problema, as escolhas de arquitetura e o que
+            ficou fora de escopo de propósito.
+          </p>
+        </div>
+        <a class="btn btn--primary" href="/sobre/">Ler o sobre</a>
+      </div>
+    </div>
+  </section>
+</Base>

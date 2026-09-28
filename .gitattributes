@@ -1,0 +1,7 @@
+# Fim de linha: o repositorio guarda sempre LF e o checkout tambem entrega LF.
+* text=auto eol=lf
+
+# Binarios: nunca converter.
+*.png binary
+*.ico binary
+*.svg text

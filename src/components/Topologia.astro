@@ -1,0 +1,102 @@
+---
+// Objeto de prova do portfolio: o mapa de integracao que o trabalho dele
+// realmente constroi. Duas faixas, porque sao dois problemas distintos que
+// compartilham a mesma planilha de campo como origem.
+---
+
+<figure class="topology reveal" style="--reveal-delay: 120ms">
+  <div class="topology__caption">
+    <span class="label">Mapa de integração</span>
+    <span class="label" style="color: var(--faint)">aresta = integração · ponto = credencial</span>
+  </div>
+
+  <svg
+    viewBox="0 0 760 320"
+    role="img"
+    aria-labelledby="topo-titulo topo-desc"
+    preserveAspectRatio="xMidYMid meet"
+  >
+    <title id="topo-titulo">Mapa de integração das ferramentas</title>
+    <desc id="topo-desc">
+      Uma planilha de campo alimenta dois importadores desktop em Python: um cria
+      hosts no Zabbix pelo formulário web, outro documenta devices no NetBox 4.3.6
+      pela API REST. Em uma faixa separada, um pipeline n8n em Docker lê usuários
+      de uma API externa e os envia a um webhook de destino.
+    </desc>
+
+    <defs>
+      <marker
+        id="seta"
+        viewBox="0 0 8 8"
+        refX="7"
+        refY="4"
+        markerWidth="6"
+        markerHeight="6"
+        orient="auto-start-reverse"
+      >
+        <path d="M 0 0 L 8 4 L 0 8 z" fill="var(--accent-dim)"></path>
+      </marker>
+    </defs>
+
+    <!-- faixa 1: camera / plataforma -->
+    <text class="topo-node--muted" x="14" y="12">CAMPO → PLATAFORMA · CFTV</text>
+
+    <rect class="topo-box topo-box--source" x="14" y="63" width="150" height="58" rx="6"></rect>
+    <text class="topo-node" x="26" y="88">PLANILHA</text>
+    <text class="topo-node--muted" x="26" y="106">xlsx · csv</text>
+
+    <rect class="topo-box" x="232" y="24" width="170" height="58" rx="6"></rect>
+    <text class="topo-node" x="244" y="49">IMPORTADOR ZABBIX</text>
+    <text class="topo-node--muted" x="244" y="67">pyside6 · python</text>
+
+    <rect class="topo-box" x="232" y="102" width="170" height="58" rx="6"></rect>
+    <text class="topo-node" x="244" y="127">IMPORTADOR NETBOX</text>
+    <text class="topo-node--muted" x="244" y="145">pyside6 · python</text>
+
+    <rect class="topo-box" x="506" y="24" width="236" height="58" rx="6"></rect>
+    <text class="topo-node" x="518" y="49">ZABBIX</text>
+    <text class="topo-node--muted" x="518" y="67">hosts · templates · grupos</text>
+
+    <rect class="topo-box" x="506" y="102" width="236" height="58" rx="6"></rect>
+    <text class="topo-node" x="518" y="127">NETBOX 4.3.6</text>
+    <text class="topo-node--muted" x="518" y="145">devices · interfaces · ips</text>
+
+    <path class="topo-edge" d="M164 92 L224 58" marker-end="url(#seta)"></path>
+    <path class="topo-edge" d="M164 92 L224 126" marker-end="url(#seta)"></path>
+    <path class="topo-edge" d="M402 53 L498 53" marker-end="url(#seta)"></path>
+    <path class="topo-edge" d="M402 131 L498 131" marker-end="url(#seta)"></path>
+
+    <circle class="topo-dot" cx="164" cy="92" r="2.6"></circle>
+    <circle class="topo-dot" cx="402" cy="53" r="2.6"></circle>
+    <circle class="topo-dot" cx="402" cy="131" r="2.6"></circle>
+
+    <text class="topo-edge-label" x="198" y="64" text-anchor="middle">login web</text>
+    <text class="topo-edge-label" x="198" y="128" text-anchor="middle">REST /api</text>
+    <text class="topo-edge-label" x="450" y="45" text-anchor="middle">host.create</text>
+    <text class="topo-edge-label" x="450" y="123" text-anchor="middle">GET → POST</text>
+
+    <!-- faixa 2: automacao / etl -->
+    <text class="topo-node--muted" x="14" y="212">AUTOMAÇÃO · ETL DE USUÁRIOS</text>
+
+    <rect class="topo-box topo-box--source" x="14" y="236" width="150" height="58" rx="6"></rect>
+    <text class="topo-node" x="26" y="261">API EXTERNA</text>
+    <text class="topo-node--muted" x="26" y="279">usuários</text>
+
+    <rect class="topo-box" x="232" y="236" width="170" height="58" rx="6"></rect>
+    <text class="topo-node" x="244" y="261">FLOWGATE</text>
+    <text class="topo-node--muted" x="244" y="279">n8n · docker</text>
+
+    <rect class="topo-box" x="506" y="236" width="236" height="58" rx="6"></rect>
+    <text class="topo-node" x="518" y="261">WEBHOOK / CRM</text>
+    <text class="topo-node--muted" x="518" y="279">1 req a cada 2s · 5 tentativas</text>
+
+    <path class="topo-edge" d="M164 265 L224 265" marker-end="url(#seta)"></path>
+    <path class="topo-edge" d="M402 265 L498 265" marker-end="url(#seta)"></path>
+
+    <circle class="topo-dot" cx="164" cy="265" r="2.6"></circle>
+    <circle class="topo-dot" cx="402" cy="265" r="2.6"></circle>
+
+    <text class="topo-edge-label" x="194" y="257" text-anchor="middle">GET /users</text>
+    <text class="topo-edge-label" x="450" y="257" text-anchor="middle">POST em série</text>
+  </svg>
+</figure>

@@ -1,0 +1,1034 @@
+/* =========================================================================
+   Sistema de design do portfolio
+   -------------------------------------------------------------------------
+   Registro: marca, lane tecnica / systems-minded.
+
+   Cor: canvas escuro tingido no matiz do accent (neutro nunca e cinza puro),
+   um unico accent de sinal (teal), e cores de estado que carregam significado.
+   O accent aparece pouco de proposito: ele marca acao, foco e "ligado".
+
+   Tipo: IBM Plex Sans para leitura e IBM Plex Mono para rotulos, IDs e
+   numeros. A Plex foi desenhada para contexto tecnico, que e o registro daqui.
+
+   Espaco: base de 4px, com os passos macro em 16 e 36 (ritmo 1 / 4 / 9).
+   ========================================================================= */
+
+:root {
+  /* --- cor: superficies ------------------------------------------------- */
+  --canvas: oklch(0.17 0.018 205);
+  --surface: oklch(0.215 0.02 205);
+  --surface-2: oklch(0.255 0.022 205);
+  --border: oklch(0.32 0.02 205);
+  --border-strong: oklch(0.44 0.026 205);
+
+  /* --- cor: texto ------------------------------------------------------- */
+  --text: oklch(0.95 0.008 205);
+  --muted: oklch(0.745 0.014 205);
+  --faint: oklch(0.6 0.014 205);
+  --ink-on-accent: oklch(0.17 0.02 205);
+
+  /* --- cor: accent e estados ------------------------------------------- */
+  --accent: oklch(0.84 0.135 187);
+  --accent-dim: oklch(0.52 0.08 187);
+  --ok: oklch(0.78 0.15 155);
+  --warn: oklch(0.82 0.14 78);
+  --err: oklch(0.7 0.17 25);
+
+  /* --- espaco (base 4, macro em 16 e 36) -------------------------------- */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.5rem;
+  --sp-6: 2.25rem;
+  --sp-7: 3.25rem;
+  --sp-8: 4.5rem;
+  --sp-9: 6.5rem;
+
+  /* --- tipo ------------------------------------------------------------- */
+  --font-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', 'Cascadia Mono', Consolas, monospace;
+
+  --step--1: clamp(0.8rem, 0.78rem + 0.1vw, 0.86rem);
+  --step-0: clamp(1rem, 0.97rem + 0.15vw, 1.09rem);
+  --step-1: clamp(1.3rem, 1.24rem + 0.3vw, 1.45rem);
+  --step-2: clamp(1.7rem, 1.58rem + 0.6vw, 2.05rem);
+  --step-3: clamp(2.1rem, 1.9rem + 1vw, 2.8rem);
+  --step-4: clamp(2.6rem, 2.2rem + 2.2vw, 4rem);
+
+  /* --- forma ------------------------------------------------------------ */
+  --radius-sm: 4px;
+  --radius: 8px;
+  --radius-lg: 14px;
+  --shell: 1120px;
+  --measure: 68ch;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* =========================================================================
+   Reset enxuto
+   ========================================================================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--canvas);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: var(--step-0);
+  line-height: 1.65;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* =========================================================================
+   Tipografia
+   Texto claro sobre fundo escuro le como mais fino e mais brilhante, entao a
+   entrelinha e o espacamento de letra sao maiores do que seriam no claro.
+   ========================================================================= */
+
+h1,
+h2,
+h3 {
+  font-weight: 600;
+  line-height: 1.18;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--step-4);
+}
+
+h2 {
+  font-size: var(--step-3);
+}
+
+h3 {
+  font-size: var(--step-1);
+  line-height: 1.3;
+}
+
+p,
+li {
+  text-wrap: pretty;
+}
+
+p {
+  max-width: var(--measure);
+}
+
+strong {
+  font-weight: 600;
+  color: var(--text);
+}
+
+a {
+  color: var(--accent);
+  text-decoration-color: color-mix(in oklch, var(--accent) 45%, transparent);
+  text-underline-offset: 0.22em;
+  transition: text-decoration-color 160ms var(--ease-out);
+}
+
+a:hover {
+  text-decoration-color: var(--accent);
+}
+
+/* Foco sempre visivel, deslocado do elemento e consistente em tudo. */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+::selection {
+  background: color-mix(in oklch, var(--accent) 30%, transparent);
+  color: var(--text);
+}
+
+/* =========================================================================
+   Utilitarios
+   ========================================================================= */
+
+.shell {
+  width: 100%;
+  max-width: var(--shell);
+  margin-inline: auto;
+  padding-inline: var(--sp-5);
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--sp-4);
+  top: calc(-1 * var(--sp-9));
+  z-index: 20;
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--accent);
+  color: var(--ink-on-accent);
+  font-weight: 600;
+  border-radius: var(--radius);
+  text-decoration: none;
+  transition: top 160ms var(--ease-out);
+}
+
+.skip-link:focus {
+  top: var(--sp-4);
+}
+
+/* Rotulo em mono, caixa alta e bem espacado: a voz "instrumento". */
+.label {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1);
+  padding: 0.15rem var(--sp-2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.lede {
+  font-size: var(--step-1);
+  color: var(--muted);
+  line-height: 1.55;
+  max-width: 46ch;
+}
+
+/* =========================================================================
+   Botoes: dois niveis, sem sombra
+   ========================================================================= */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: 44px;
+  padding: var(--sp-2) var(--sp-4);
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 160ms var(--ease-out),
+    border-color 160ms var(--ease-out),
+    transform 160ms var(--ease-out);
+}
+
+.btn:hover {
+  background: var(--surface-2);
+  border-color: var(--accent-dim);
+  transform: translateY(-1px);
+}
+
+.btn--primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--ink-on-accent);
+  font-weight: 600;
+}
+
+.btn--primary:hover {
+  background: color-mix(in oklch, var(--accent) 88%, white);
+  border-color: color-mix(in oklch, var(--accent) 88%, white);
+}
+
+/* =========================================================================
+   Cabecalho e navegacao
+   ========================================================================= */
+
+.site-header {
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in oklch, var(--canvas) 88%, transparent);
+  backdrop-filter: blur(8px);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  justify-content: space-between;
+  min-height: 64px;
+}
+
+.brand {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-2);
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.brand__mark {
+  color: var(--accent);
+  font-family: var(--font-mono);
+}
+
+.nav {
+  display: flex;
+  gap: var(--sp-4);
+  align-items: center;
+}
+
+.nav a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: var(--step-0);
+  padding-block: var(--sp-2);
+  border-bottom: 1px solid transparent;
+}
+
+.nav a:hover {
+  color: var(--text);
+  border-bottom-color: var(--accent);
+}
+
+.nav a[aria-current='page'] {
+  color: var(--text);
+  border-bottom-color: var(--accent);
+}
+
+/* Menu em telas pequenas: <details> nativo, sem JavaScript e navegavel
+   pelo teclado. */
+.nav-toggle {
+  display: none;
+}
+
+.nav-toggle > summary {
+  list-style: none;
+  cursor: pointer;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  padding: var(--sp-2) var(--sp-4);
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.nav-toggle > summary::-webkit-details-marker {
+  display: none;
+}
+
+/* =========================================================================
+   Heroi: dividido, com o artefato (topologia) carregando mais massa do que
+   o texto. Nao e um bloco centralizado.
+   ========================================================================= */
+
+.hero {
+  padding-block: var(--sp-8) var(--sp-7);
+  border-bottom: 1px solid var(--border);
+}
+
+.hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--sp-7);
+  align-items: start;
+}
+
+@media (min-width: 900px) {
+  .hero__grid {
+    grid-template-columns: minmax(0, 30rem) minmax(0, 1fr);
+    gap: var(--sp-8);
+  }
+}
+
+.hero__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-4);
+}
+
+.hero h1 {
+  margin-bottom: var(--sp-4);
+}
+
+.hero h1 em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  margin-top: var(--sp-5);
+}
+
+/* =========================================================================
+   Faixa de status: os numeros reais do trabalho, no lugar de uma frase
+   de efeito.
+   ========================================================================= */
+
+.status-strip {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-top: var(--sp-6);
+}
+
+@media (min-width: 560px) {
+  .status-strip {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.status-strip__cell {
+  background: var(--surface);
+  padding: var(--sp-4);
+}
+
+.status-strip__value {
+  font-family: var(--font-mono);
+  font-size: var(--step-2);
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+  line-height: 1.1;
+}
+
+.status-strip__label {
+  margin-top: var(--sp-1);
+}
+
+/* =========================================================================
+   Topologia: o objeto de prova. Diagrama de integracao em SVG inline, com a
+   planilha como origem e as plataformas como destinos.
+   ========================================================================= */
+
+.topology {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(
+      120% 90% at 80% 0%,
+      color-mix(in oklch, var(--accent) 7%, transparent),
+      transparent 60%
+    ),
+    var(--surface);
+  padding: var(--sp-5);
+}
+
+.topology__caption {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-4);
+  flex-wrap: wrap;
+}
+
+.topology svg {
+  width: 100%;
+  height: auto;
+}
+
+.topo-box {
+  fill: var(--surface-2);
+  stroke: var(--border-strong);
+  stroke-width: 1;
+  rx: 6;
+}
+
+.topo-box--source {
+  fill: color-mix(in oklch, var(--accent) 14%, var(--surface-2));
+  stroke: var(--accent-dim);
+}
+
+.topo-node {
+  fill: var(--text);
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.topo-node--muted {
+  fill: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.topo-edge {
+  stroke: var(--accent-dim);
+  stroke-width: 1.4;
+  fill: none;
+  stroke-dasharray: 1 0;
+}
+
+.topo-edge--dotted {
+  stroke-dasharray: 4 5;
+}
+
+.topo-edge-label {
+  fill: var(--faint);
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+}
+
+.topo-dot {
+  fill: var(--accent);
+}
+
+/* =========================================================================
+   Secoes
+   ========================================================================= */
+
+.section {
+  padding-block: var(--sp-8);
+  border-bottom: 1px solid var(--border);
+}
+
+.section__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  flex-wrap: wrap;
+  margin-bottom: var(--sp-6);
+}
+
+.section__head p {
+  max-width: 52ch;
+  color: var(--muted);
+}
+
+/* =========================================================================
+   Dossies de projeto: linhas, nao cartoes iguais.
+   ========================================================================= */
+
+.dossier {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--sp-4);
+  padding-block: var(--sp-6);
+  border-top: 1px solid var(--border);
+  align-items: start;
+}
+
+@media (min-width: 860px) {
+  .dossier {
+    grid-template-columns: 4.5rem minmax(0, 22rem) minmax(0, 1fr);
+    gap: var(--sp-5);
+  }
+}
+
+.dossier__index {
+  font-family: var(--font-mono);
+  font-size: var(--step-1);
+  color: var(--faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.dossier__title {
+  font-size: var(--step-1);
+  margin-bottom: var(--sp-2);
+}
+
+.dossier__title a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.dossier__title a:hover {
+  color: var(--accent);
+}
+
+.dossier__role {
+  color: var(--muted);
+  font-size: var(--step--1);
+}
+
+.dossier__stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-1) var(--sp-2);
+  margin-top: var(--sp-3);
+}
+
+.dossier__body {
+  display: grid;
+  gap: var(--sp-4);
+}
+
+.dossier__metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-5);
+}
+
+.dossier__metric {
+  display: grid;
+  gap: 0.1rem;
+}
+
+.dossier__metric b {
+  font-family: var(--font-mono);
+  font-size: var(--step-1);
+  font-weight: 500;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+.dossier__metric span {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+/* Grade de areas de atuacao */
+.areas {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+@media (min-width: 640px) {
+  .areas {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1000px) {
+  .areas {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.areas__cell {
+  background: var(--surface);
+  padding: var(--sp-4) var(--sp-4) var(--sp-5);
+}
+
+.areas__cell p {
+  margin-top: var(--sp-2);
+  color: var(--muted);
+  font-size: var(--step--1);
+  line-height: 1.55;
+}
+
+/* Fechamento */
+.closing {
+  padding-block: var(--sp-8);
+}
+
+.closing__inner {
+  display: grid;
+  gap: var(--sp-5);
+  padding: var(--sp-6);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(
+      100% 140% at 100% 0%,
+      color-mix(in oklch, var(--accent) 9%, transparent),
+      transparent 55%
+    ),
+    var(--surface);
+}
+
+@media (min-width: 860px) {
+  .closing__inner {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+  }
+}
+
+/* Moldura de midia: proporcao fixa e `contain`, porque as capturas tem
+   proporcoes diferentes entre si e nenhuma pode perder conteudo. As barras
+   caem sobre a superficie e leem como moldura, nao como sobra. */
+.media {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--surface);
+  aspect-ratio: 16 / 10;
+}
+
+.media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* =========================================================================
+   Pagina de projeto
+   ========================================================================= */
+
+.prose {
+  max-width: var(--measure);
+}
+
+.prose > * + * {
+  margin-top: var(--sp-4);
+}
+
+.prose h2 {
+  font-size: var(--step-2);
+  margin-top: var(--sp-7);
+}
+
+.prose h3 {
+  margin-top: var(--sp-6);
+}
+
+.prose ul,
+.prose ol {
+  padding-left: var(--sp-5);
+  display: grid;
+  gap: var(--sp-2);
+}
+
+.prose li::marker {
+  color: var(--accent-dim);
+}
+
+.prose code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.1em 0.35em;
+}
+
+.prose pre {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--sp-4);
+  overflow-x: auto;
+}
+
+.prose pre code {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.prose blockquote {
+  border-left: 2px solid var(--accent-dim);
+  padding-left: var(--sp-4);
+  color: var(--muted);
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--step--1);
+}
+
+.prose th,
+.prose td {
+  border-bottom: 1px solid var(--border);
+  padding: var(--sp-2) var(--sp-3);
+  text-align: left;
+  vertical-align: top;
+}
+
+.prose th {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+/* =========================================================================
+   Blocos de fatos (ficha tecnica)
+   ========================================================================= */
+
+.facts {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-block: var(--sp-6);
+}
+
+@media (min-width: 640px) {
+  .facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.facts__row {
+  background: var(--surface);
+  padding: var(--sp-3) var(--sp-4);
+}
+
+.facts__value {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--text);
+  margin-top: var(--sp-1);
+}
+
+/* =========================================================================
+   Rodape
+   ========================================================================= */
+
+.site-footer {
+  padding-block: var(--sp-7);
+  color: var(--muted);
+}
+
+.site-footer__grid {
+  display: grid;
+  gap: var(--sp-5);
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (min-width: 760px) {
+  .site-footer__grid {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+  }
+}
+
+.site-footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-4);
+}
+
+.site-footer a {
+  color: var(--muted);
+}
+
+.site-footer a:hover {
+  color: var(--text);
+}
+
+/* =========================================================================
+   Movimento
+   Entra so onde comunica: revela a ordem de leitura. Respeita quem pediu
+   menos movimento pelo sistema.
+   ========================================================================= */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: reveal 620ms var(--ease-out) forwards;
+  animation-delay: var(--reveal-delay, 0ms);
+}
+
+@keyframes reveal {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* =========================================================================
+   Responsivo: o menu vira disclosure nativo abaixo de 720px
+   ========================================================================= */
+
+@media (max-width: 719px) {
+  .nav {
+    display: none;
+  }
+
+  .nav-toggle {
+    display: block;
+    position: relative;
+  }
+
+  .nav-toggle[open] > summary {
+    color: var(--text);
+    border-color: var(--accent-dim);
+  }
+
+  .nav-toggle__panel {
+    position: absolute;
+    right: 0;
+    top: calc(100% + var(--sp-2));
+    display: grid;
+    gap: var(--sp-1);
+    min-width: 12rem;
+    padding: var(--sp-2);
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius);
+    z-index: 20;
+  }
+
+  .nav-toggle__panel a {
+    color: var(--muted);
+    text-decoration: none;
+    padding: var(--sp-3) var(--sp-3);
+    border-radius: var(--radius-sm);
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-toggle__panel a:hover {
+    background: var(--surface-2);
+    color: var(--text);
+  }
+}
+
+@media (min-width: 720px) {
+  .nav-toggle__panel {
+    display: contents;
+  }
+}
+
+/* =========================================================================
+   Linha do tempo (pagina sobre)
+   ========================================================================= */
+
+.timeline {
+  display: grid;
+  gap: var(--sp-5);
+}
+
+.timeline__item {
+  display: grid;
+  gap: var(--sp-1);
+  padding-left: var(--sp-4);
+  border-left: 2px solid var(--border);
+}
+
+.timeline__item--atual {
+  border-left-color: var(--accent);
+}
+
+.timeline__when {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.timeline__role {
+  font-weight: 600;
+  font-size: var(--step-1);
+  line-height: 1.3;
+}
+
+.timeline__org {
+  color: var(--muted);
+}
+
+.timeline__item ul {
+  margin-top: var(--sp-2);
+  padding-left: var(--sp-5);
+  display: grid;
+  gap: var(--sp-1);
+  color: var(--muted);
+  font-size: var(--step--1);
+  line-height: 1.6;
+  max-width: var(--measure);
+}
+
+.timeline__item li::marker {
+  color: var(--accent-dim);
+}
+
+/* Ficha simples de duas colunas (formacao, idiomas) */
+.pairs {
+  display: grid;
+  gap: var(--sp-3);
+}
+
+.pairs__row {
+  display: grid;
+  gap: 0.15rem;
+  padding-bottom: var(--sp-3);
+  border-bottom: 1px solid var(--border);
+}
+
+.pairs__row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.pairs__row p {
+  color: var(--muted);
+  font-size: var(--step--1);
+}

@@ -1,0 +1,210 @@
+---
+import Base from '../layouts/Base.astro';
+
+const experiencia = [
+  {
+    quando: 'junho de 2026 · atual',
+    cargo: 'Analista de implantação',
+    org: 'HowBe · Fortaleza, CE',
+    atual: true,
+    itens: [
+      'Integração e homologação de câmeras IP, controle de acesso e outros dispositivos de segurança eletrônica à rede corporativa, incluindo servidores, NAS e plataformas de CFTV como HikCentral, Nx Witness e ISS.',
+      'Administração e monitoramento proativo com Zabbix: homologação de dispositivos, criação e vinculação de templates, parametrização de coleta, triggers e dashboards.',
+      'Desenvolvimento do aplicativo desktop integrado à API do Zabbix para importação massiva de dispositivos, além de scripts próprios para configuração massiva de câmeras Dahua usando o mecanismo de descoberta do fabricante.',
+      'Integração Zabbix com o GLPI para abertura e tratamento automatizado de chamados, com regras, automações e controle de duplicidade.',
+      'Estruturação de processos de ITSM no GLPI: entidades, grupos, usuários, regras, automações e fluxos de atendimento.',
+      'Dashboards operacionais e de observabilidade em Zabbix, Grafana e SQL, com integração ao banco do GLPI para indicadores de infraestrutura e atendimento.',
+    ],
+  },
+  {
+    quando: 'agosto de 2025 a junho de 2026',
+    cargo: 'Assistente de suporte técnico',
+    org: 'HowBe · Fortaleza, CE',
+    itens: [
+      'Solução completa de monitoramento para o Banco BNB: Zabbix, GLPI e webhooks com abertura automática de chamados, eliminando trabalho manual e garantindo o SLA contratual de 15 minutos em operação 24/7.',
+      'Geomapa em tempo real com o status das agências bancárias, com consultas SQL no banco do Zabbix e dashboards customizados.',
+      'Integração entre Zabbix e um bot do Telegram para alertas de queda e restabelecimento, reduzindo o tempo de resposta.',
+      'Automação em Node.js que compila os incidentes da semana direto do banco de dados e envia o relatório consolidado por e-mail.',
+      'Suporte técnico a sistemas corporativos, hardware, áudio e vídeo e CFTV, em ambiente crítico 24/7, seguindo os processos de mudança e incidente do ITIL.',
+    ],
+  },
+  {
+    quando: 'junho de 2025 a agosto de 2025',
+    cargo: 'Desenvolvedor backend',
+    org: 'VG Tech Solutions · remoto',
+    itens: [
+      'Automações e scripts para otimizar processos internos.',
+      'Manutenção preventiva e corretiva de sistemas críticos em produção, em aplicações SaaS.',
+      'Gestão de bancos MariaDB, com queries para extração de dados e geração de relatórios operacionais.',
+    ],
+  },
+  {
+    quando: 'maio de 2025 a agosto de 2025',
+    cargo: 'Auxiliar de TI',
+    org: 'Unichristus · Fortaleza, CE',
+    itens: [
+      'Suporte presencial a equipamentos de informática e sistemas de áudio e vídeo em ambientes educacionais.',
+      'Gestão da infraestrutura de TI e dos sistemas corporativos, com manutenções, instalação de equipamentos e configuração de estações de trabalho.',
+    ],
+  },
+  {
+    quando: 'junho de 2023 a dezembro de 2024',
+    cargo: 'Agente de atendimento ao cliente',
+    org: 'Concentrix · Fortaleza, CE',
+    itens: [
+      'Atendimento técnico a vendedores de uma plataforma de e-commerce, com uso de CRM e dashboards para gestão das solicitações.',
+    ],
+  },
+];
+
+const formacao = [
+  {
+    titulo: 'UniFanor Wyden',
+    detalhe: 'Curso Superior de Tecnologia em Análise e Desenvolvimento de Sistemas, março de 2024 a agosto de 2026.',
+  },
+  {
+    titulo: 'EEMTI Santo Afonso',
+    detalhe: 'Ensino médio completo, 2015 a 2018.',
+  },
+];
+
+const certificacoes = [
+  { titulo: 'Networking Basics', detalhe: 'Fundamentos de redes.' },
+  { titulo: 'Programação para Internet', detalhe: 'Desenvolvimento para a web.' },
+  { titulo: 'Programação de algoritmos escaláveis', detalhe: 'Algoritmos e eficiência.' },
+];
+---
+
+<Base
+  title="Sobre · Lucas Daniel Santos"
+  description="Analista de implantação com experiência em infraestrutura, monitoramento, automação e integração de sistemas. Trajetória, formação e ferramentas do dia a dia."
+>
+  <section class="section">
+    <div class="shell">
+      <p class="label">Sobre</p>
+      <h1 style="margin-top: var(--sp-2); max-width: 24ch">
+        Infraestrutura, automação e observabilidade, na prática
+      </h1>
+
+      <div class="prose" style="margin-top: var(--sp-5)">
+        <p>
+          Sou analista de implantação e trabalho com infraestrutura, CFTV, monitoramento e
+          automação. Atuo de ponta a ponta na construção e sustentação de soluções para ambientes
+          corporativos: da configuração do equipamento ao indicador que mostra se o ambiente está
+          de pé.
+        </p>
+        <p>
+          Na HowBe trabalho com projetos de infraestrutura e CFTV que envolvem servidores, NAS,
+          redes, câmeras IP e plataformas como HikCentral, Nx Witness, ISS, Zabbix, GLPI e Grafana.
+          Além da implantação e do suporte, desenvolvo automações e ferramentas próprias para
+          reduzir atividade manual, padronizar processos e melhorar a resposta a incidentes.
+        </p>
+        <p>
+          Meu diferencial é juntar a visão de infraestrutura com desenvolvimento: entender o
+          problema operacional e construir a ferramenta que o resolve, em vez de conviver com ele.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <div class="section__head">
+        <div>
+          <p class="label">Trajetória</p>
+          <h2>Experiência</h2>
+        </div>
+      </div>
+
+      <div class="timeline">
+        {
+          experiencia.map((item) => (
+            <article class={`timeline__item${item.atual ? ' timeline__item--atual' : ''}`}>
+              <p class="timeline__when">{item.quando}</p>
+              <h3 class="timeline__role">{item.cargo}</h3>
+              <p class="timeline__org">{item.org}</p>
+              <ul>
+                {item.itens.map((texto) => (
+                  <li>{texto}</li>
+                ))}
+              </ul>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <div class="section__head">
+        <div>
+          <p class="label">Base</p>
+          <h2>Formação, certificações e idiomas</h2>
+        </div>
+      </div>
+
+      <div class="areas" style="background: none; border: none; overflow: visible; gap: var(--sp-7)">
+        <div>
+          <h3 class="label" style="color: var(--text); margin-bottom: var(--sp-4)">Formação</h3>
+          <div class="pairs">
+            {
+              formacao.map((item) => (
+                <div class="pairs__row">
+                  <strong>{item.titulo}</strong>
+                  <p>{item.detalhe}</p>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+
+        <div>
+          <h3 class="label" style="color: var(--text); margin-bottom: var(--sp-4)">
+            Certificações
+          </h3>
+          <div class="pairs">
+            {
+              certificacoes.map((item) => (
+                <div class="pairs__row">
+                  <strong>{item.titulo}</strong>
+                  <p>{item.detalhe}</p>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+
+        <div>
+          <h3 class="label" style="color: var(--text); margin-bottom: var(--sp-4)">Idiomas</h3>
+          <div class="pairs">
+            <div class="pairs__row">
+              <strong>Português</strong>
+              <p>Nativo.</p>
+            </div>
+            <div class="pairs__row">
+              <strong>Inglês</strong>
+              <p>Leitura técnica e escrita para trabalho.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing">
+    <div class="shell">
+      <div class="closing__inner">
+        <div>
+          <h2>O que eu busco agora</h2>
+          <p style="margin-top: var(--sp-2); color: var(--muted); max-width: 52ch">
+            Oportunidades em automação, infraestrutura, observabilidade e integração de sistemas,
+            de preferência em projetos de maior complexidade e evolução técnica. Presencial, híbrido
+            ou remoto.
+          </p>
+        </div>
+        <a class="btn btn--primary" href="mailto:lucasdsantos2201@gmail.com">Falar comigo</a>
+      </div>
+    </div>
+  </section>
+</Base>
