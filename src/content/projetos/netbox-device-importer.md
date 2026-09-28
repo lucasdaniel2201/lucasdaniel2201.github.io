@@ -101,3 +101,15 @@ A versão do aplicativo vive em três arquivos mantidos à mão, porque cada um 
 lido por quem é diferente: o Python, o Inno Setup e o Windows. Existe um teste
 que falha se algum deles divergir, e ele é a trava contra o erro de lançamento
 mais provável.
+
+## A mesma ferramenta, o outro destino
+
+Este app é a metade de um par. O [importador de câmeras para o
+Zabbix](/projetos/zabbix-camera-importer/) usa a mesma estrutura para resolver o
+mesmo problema, com outro destino: aqui o parque é documentado, lá ele passa a
+ser monitorado.
+
+A forma se repete de propósito, não por falta de repertório. A mesma tela, a
+mesma prévia antes de enviar, a mesma validação linha a linha, o mesmo relatório
+no fim, a mesma thread para a janela não travar. Quem aprende uma ferramenta sabe
+usar a outra, e eu mantenho uma superfície só para as duas.

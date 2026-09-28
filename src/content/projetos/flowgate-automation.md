@@ -88,3 +88,14 @@ O que garante que o pipeline executa de verdade é o outro job do CI: um smoke
 test ponta a ponta que sobe o Compose, espera o healthcheck, importa e ativa o
 workflow, dispara o webhook e confere o sumário. É ele que valida uma atualização
 da imagem do n8n antes de ela entrar.
+
+## Fora da suíte, por decisão
+
+O importador de câmeras para o [Zabbix](/projetos/zabbix-camera-importer/) e o
+importador de dispositivos para o [NetBox](/projetos/netbox-device-importer/)
+formam uma suíte: mesma tela, mesmo problema, dois destinos. Este projeto não faz
+parte dela.
+
+Não tem tela, não tem planilha e não tem ninguém na frente. É um pipeline que
+roda sozinho, e é de propósito que ele não se pareça com os outros dois: o
+problema aqui é outro.

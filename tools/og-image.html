@@ -1,0 +1,142 @@
+<!doctype html>
+<!--
+  Fonte do cartao de compartilhamento (og:image).
+
+  Nao entra no site: e uma pagina solta, capturada em 1200x630 por um navegador
+  headless, e o resultado vai para public/og.png. Para regerar:
+
+    tools/gerar-og.ps1
+
+  A composicao replica os tokens de src/styles/global.css de proposito, para o
+  cartao e o site falarem a mesma lingua.
+-->
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@600&display=swap"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 1200px;
+        height: 630px;
+        overflow: hidden;
+      }
+
+      body {
+        background-color: oklch(0.17 0.018 205);
+        background-image: radial-gradient(
+          70% 90% at 100% 0%,
+          color-mix(in oklch, oklch(0.84 0.135 187) 14%, transparent),
+          transparent 60%
+        );
+        color: oklch(0.95 0.008 205);
+        font-family: 'IBM Plex Sans', 'Segoe UI', sans-serif;
+        position: relative;
+      }
+
+      .eyebrow {
+        position: absolute;
+        top: 74px;
+        left: 76px;
+        font-family: 'IBM Plex Mono', Consolas, monospace;
+        font-size: 15px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: oklch(0.84 0.135 187);
+      }
+
+      .areas {
+        position: absolute;
+        top: 76px;
+        right: 76px;
+        font-family: 'IBM Plex Mono', Consolas, monospace;
+        font-size: 14px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: oklch(0.6 0.014 205);
+      }
+
+      h1 {
+        position: absolute;
+        top: 196px;
+        left: 76px;
+        right: 76px;
+        font-size: 56px;
+        font-weight: 600;
+        line-height: 1.18;
+        letter-spacing: -0.02em;
+      }
+
+      h1 em {
+        font-style: normal;
+        color: oklch(0.84 0.135 187);
+      }
+
+      .rule {
+        position: absolute;
+        top: 486px;
+        left: 76px;
+        right: 76px;
+        height: 1px;
+        background: oklch(0.32 0.02 205);
+      }
+
+      .url {
+        position: absolute;
+        top: 516px;
+        left: 76px;
+        font-family: 'IBM Plex Mono', Consolas, monospace;
+        font-size: 19px;
+        color: oklch(0.745 0.014 205);
+      }
+
+      .contagem {
+        position: absolute;
+        top: 519px;
+        right: 76px;
+        font-family: 'IBM Plex Mono', Consolas, monospace;
+        font-size: 15px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: oklch(0.6 0.014 205);
+      }
+
+      /* Marca de sinal: o mesmo ponto das arestas do mapa de integracao. */
+      .dot {
+        position: absolute;
+        top: 486px;
+        left: 76px;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: oklch(0.84 0.135 187);
+        transform: translateY(-3px);
+      }
+    </style>
+  </head>
+  <body>
+    <p class="eyebrow">Lucas Daniel Santos</p>
+    <p class="areas">Infraestrutura · Automação · Observabilidade</p>
+
+    <h1>
+      <em>Ferramentas próprias</em> para implantar, documentar e monitorar
+      infraestrutura.
+    </h1>
+
+    <div class="rule"></div>
+    <div class="dot"></div>
+    <p class="url">lucasdaniel2201.github.io</p>
+    <p class="contagem">3 projetos publicados</p>
+  </body>
+</html>

@@ -94,3 +94,15 @@ a suíte no Windows (3.12 e 3.14) e o Ruff em separado.
 
 Cada execução grava três relatórios (log, JSON e CSV), e um script separado
 consolida o resumo de várias execuções para revisar um lote grande depois.
+
+## A mesma ferramenta, o outro destino
+
+Este app é a metade de um par. O [importador de dispositivos para o
+NetBox](/projetos/netbox-device-importer/) usa a mesma estrutura para resolver o
+mesmo problema, com outro destino: lá o parque é documentado, aqui ele passa a
+ser monitorado.
+
+A forma se repete de propósito, não por falta de repertório. A mesma tela, a
+mesma prévia antes de enviar, a mesma validação linha a linha, o mesmo relatório
+no fim, a mesma thread para a janela não travar. Quem aprende uma ferramenta sabe
+usar a outra, e eu mantenho uma superfície só para as duas.

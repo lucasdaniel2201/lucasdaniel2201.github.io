@@ -19,6 +19,56 @@ const projetos = (await getCollection('projetos')).sort((a, b) => a.data.ordem -
         testes, integração contínua e release publicada.
       </p>
 
+      <div class="suite">
+        <div>
+          <p class="label" style="margin-bottom: var(--sp-3)">Suíte</p>
+          <h2>Uma suíte, dois destinos</h2>
+          <p>
+            Os dois importadores não são dois projetos parecidos por acaso. São a mesma ferramenta
+            apontada para dois destinos diferentes.
+          </p>
+          <p>
+            O problema é um só: o analista de implantação tem uma planilha na mão e precisa que
+            aquilo vire cadastro em uma plataforma. O que muda é para onde vai. O NetBox guarda o
+            que existe; o Zabbix garante que o que existe seja monitorado.
+          </p>
+          <p>
+            Por isso a forma se repete de propósito. Quem aprende uma ferramenta sabe usar a outra,
+            e eu mantenho uma superfície só para as duas, o que reduz o custo de corrigir e evoluir.
+          </p>
+          <p style="color: var(--muted)">
+            O Flowgate é outra coisa: não tem tela, não tem planilha e não tem ninguém na frente. É
+            um pipeline que roda sozinho.
+          </p>
+        </div>
+
+        <div>
+          <p class="label" style="margin-bottom: var(--sp-4)">O que os dois compartilham</p>
+          <ul class="suite__lista">
+            <li>
+              <b>A mesma tela</b>
+              <span>Login, planilha, opções, prévia e relatório, sempre na mesma ordem.</span>
+            </li>
+            <li>
+              <b>A mesma prévia</b>
+              <span>Validação linha a linha, com o erro bloqueando o envio antes de virar lixo no destino.</span>
+            </li>
+            <li>
+              <b>A mesma arquitetura</b>
+              <span>Nenhuma tela fala com a rede: o worker roda em thread própria e devolve por sinal.</span>
+            </li>
+            <li>
+              <b>O mesmo pacote</b>
+              <span>PyInstaller mais Inno Setup, instalador por usuário e opção portátil.</span>
+            </li>
+            <li>
+              <b>A mesma disciplina</b>
+              <span>Suíte de testes que roda offline, CI verde e release com binário anexado.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
       <div style="margin-top: var(--sp-7)">
         {projetos.map((projeto, i) => <Dossie projeto={projeto} indice={i + 1} />)}
       </div>
