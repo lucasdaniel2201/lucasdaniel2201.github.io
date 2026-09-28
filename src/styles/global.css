@@ -712,6 +712,21 @@ a:hover {
   object-fit: contain;
 }
 
+/* Telas de apoio do case study: lado a lado quando cabe, para ler como um
+   conjunto e nao como uma pilha de imagens soltas. */
+.galeria {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--sp-4);
+  margin-top: var(--sp-4);
+}
+
+@media (min-width: 780px) {
+  .galeria {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 /* =========================================================================
    Pagina de projeto
    ========================================================================= */

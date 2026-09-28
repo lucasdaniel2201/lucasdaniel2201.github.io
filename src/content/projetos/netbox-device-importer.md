@@ -21,8 +21,9 @@ imagem: '/img/netbox-ambiente.png'
 imagemAlt: >-
   Tela do app após conectar, resumindo o ambiente descoberto: sites, papéis e
   tipos de device encontrados no NetBox.
-imagem2: '/img/netbox-atualizacao.png'
-imagem2Alt: 'Aviso de nova versão, com o botão de baixar e instalar.'
+galeria:
+  - src: '/img/netbox-atualizacao.png'
+    alt: 'Aviso de nova versão, com o botão de baixar e instalar.'
 metricas:
   - valor: '345'
     rotulo: 'testes offline'

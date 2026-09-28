@@ -59,14 +59,18 @@ const dados = projeto.data;
         }
       </div>
 
-      <div class="media" style="margin-bottom: var(--sp-3)">
+      <div class="media">
         <img src={dados.imagem} alt={dados.imagemAlt} loading="eager" decoding="async" />
       </div>
 
       {
-        dados.imagem2 && (
-          <div class="media" style="margin-bottom: var(--sp-7)">
-            <img src={dados.imagem2} alt={dados.imagem2Alt} loading="lazy" decoding="async" />
+        dados.galeria.length > 0 && (
+          <div class="galeria">
+            {dados.galeria.map((item) => (
+              <div class="media">
+                <img src={item.src} alt={item.alt} loading="lazy" decoding="async" />
+              </div>
+            ))}
           </div>
         )
       }

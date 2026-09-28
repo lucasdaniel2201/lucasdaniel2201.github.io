@@ -22,8 +22,9 @@ const projetos = defineCollection({
     ),
     imagem: z.string(),
     imagemAlt: z.string(),
-    imagem2: z.string().optional(),
-    imagem2Alt: z.string().optional(),
+    // Imagens extras do case study. A `imagem` acima e a capa (tambem usada na
+    // listagem); a galeria sao as telas de apoio, na ordem em que aparecem.
+    galeria: z.array(z.object({ src: z.string(), alt: z.string() })).default([]),
     ficha: z.array(
       z.object({
         rotulo: z.string(),

@@ -20,8 +20,11 @@ imagem: '/img/zabbix-planilha.png'
 imagemAlt: >-
   Tela do importador com a planilha carregada: preview das câmeras validadas,
   grupos e templates selecionados e o botão de importar liberado.
-imagem2: '/img/zabbix-importacao.png'
-imagem2Alt: 'Tela durante a importação, com barra de progresso e botão de cancelar.'
+galeria:
+  - src: '/img/zabbix-login.png'
+    alt: 'Tela de login do app, com os campos de usuário e senha do Zabbix.'
+  - src: '/img/zabbix-importacao.png'
+    alt: 'Tela durante a importação, com barra de progresso e botão de cancelar.'
 metricas:
   - valor: '102'
     rotulo: 'testes offline'

@@ -16,8 +16,9 @@ repo: 'https://github.com/lucasdaniel2201/flowgate-automation'
 release: 'https://github.com/lucasdaniel2201/flowgate-automation/releases/latest'
 imagem: '/img/flowgate-workflow.png'
 imagemAlt: 'Editor do n8n com os seis nós do pipeline encadeados e o workflow ativo.'
-imagem2: '/img/flowgate-execucoes.png'
-imagem2Alt: 'Aba de execuções do n8n, com o histórico e o grafo da execução selecionada.'
+galeria:
+  - src: '/img/flowgate-execucoes.png'
+    alt: 'Aba de execuções do n8n, com o histórico e o grafo da execução selecionada.'
 metricas:
   - valor: '6'
     rotulo: 'nós, sem branches'
