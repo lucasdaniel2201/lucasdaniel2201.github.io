@@ -160,13 +160,17 @@ O princípio vale além desse caso: quando o ponto de integração não existe, 
 não espera ele aparecer. Usa o que a plataforma já oferece e mantém o controle
 no seu lado.
 
-## O que eu levaria para a próxima
+## O que a solução assume
 
-Integração por e-mail tem contrato fraco. O formato da mensagem pode mudar dos
-dois lados sem aviso, e não há confirmação de recebimento, diferente do que
-acontece com a API do GLPI. Foi a escolha certa naquele momento, mas é a parte
-do fluxo que eu vigiaria de perto se o volume crescesse.
+Dois pontos sustentam o desenho, e os dois ficam sob controle do meu lado.
 
-E a busca por chamados ativos, que hoje resolve a duplicidade, depende de a
-busca estar bem calibrada. Janela curta demais cria duplicata, longa demais
-esconde incidente novo. É o tipo de parâmetro que só o tempo em produção ajusta.
+O primeiro é o caminho por e-mail quando o parceiro não expõe API. A parte
+frágil de qualquer integração por e-mail é o formato da mensagem, então o
+controle de duplicidade não mora lá: mora nas tags do fluxo do Zabbix, que eu
+opero. Se o formato mudar de um dos lados, o acionamento continua sob controle e
+o sintoma aparece no acompanhamento, não como chamado duplicado.
+
+O segundo é a janela de busca de chamados ativos, que é justamente o que resolve
+a duplicidade. Ela não saiu de um número escolhido no papel: começou conservadora
+e foi ajustada com o comportamento real da rede. É um parâmetro que melhora com
+tempo de operação, não com mais código.

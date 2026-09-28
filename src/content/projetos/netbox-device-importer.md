@@ -113,3 +113,11 @@ A forma se repete de propósito, não por falta de repertório. A mesma tela, a
 mesma prévia antes de enviar, a mesma validação linha a linha, o mesmo relatório
 no fim, a mesma thread para a janela não travar. Quem aprende uma ferramenta sabe
 usar a outra, e eu mantenho uma superfície só para as duas.
+
+O que as duas compartilham:
+
+- **A mesma tela**: login, planilha, opções, prévia e relatório, sempre na mesma ordem.
+- **A mesma prévia**: validação linha a linha, com o erro bloqueando o envio antes de virar lixo no destino.
+- **A mesma arquitetura**: nenhuma tela fala com a rede, o worker roda em thread própria e devolve por sinal.
+- **O mesmo pacote**: PyInstaller mais Inno Setup, instalador por usuário e opção portátil.
+- **A mesma disciplina**: suíte de testes que roda offline, CI verde e release com binário anexado.
